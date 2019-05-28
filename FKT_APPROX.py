@@ -13,6 +13,7 @@ Created on Fri May 24 11:33:37 2019
 @author: ddeford
 """
 
+
 from FKT import FKT
 import networkx as nx #Requires at least networkx 2.3+
 import matplotlib.pyplot as plt
@@ -96,7 +97,58 @@ def K_approx(K, its):
     return vals
         
         
+def K_approx2(K, its):
+    
+    vals=[]
+    wins = []
+    
+    for i in range(its):
+        
+        temp =1
+
+        
+        G=K.copy()
+        
+        nlist = list(G.nodes())
+        
+        while len(nlist) > 0:
+                        
+            elist = list(G.edges())
             
+            
+            if elist ==[]:
+                success = 0
+                break
+            
+            temp = temp * len(elist)
+            
+            
+            touse = random.choice(elist)
+            
+            #print(touse,touse[0])
+                
+            nlist.remove(touse[0])
+            nlist.remove(touse[1])
+            G.remove_nodes_from([touse[0],touse[1]])
+            
+        if len(nlist) == 0:
+            success = 1
+            
+        wins.append(success)
+        vals.append(temp)
+        
+    return wins, vals
+        
+#wa, va = K_approx2(test_G,10000)
+#np.mean(wa)*np.mean(va)/math.factorial(8)
+            
+        
+            
+        
+           
+            
+
+              
      
             
 test_G = nx.grid_graph([4,4])
@@ -105,11 +157,11 @@ print(round(FKT(nx.adjacency_matrix(test_G).todense())))
 
 #test_G = nx.convert_node_labels_to_integers(test_G)   
 
-a = K_approx(test_G,10)
+a = K_approx(test_G,1000)
 
 print(np.mean(a)/math.factorial(8))
 
-
+dkskhdas
 Adj = np.loadtxt("./data/graphs/Alaska.csv")
 
 
