@@ -185,9 +185,10 @@ print(round(FKT(nx.adjacency_matrix(test_G).todense())))
 
 #test_G = nx.convert_node_labels_to_integers(test_G)   
 
-a = K_approx(test_G,1000)
+wa,va = K_approx2(test_G,100000)
 
-print(np.mean(a)/math.factorial(8))
+print(.5*np.mean(va)/math.factorial(8))
+print(np.mean([wa[x]*va[x] for x in range(len(wa))])/math.factorial(8))
 
 dkskhdas
 Adj = np.loadtxt("./data/graphs/Alaska.csv")
