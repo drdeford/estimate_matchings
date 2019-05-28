@@ -21,7 +21,7 @@ import random
 import math
 import numpy as np
 import time
-
+import scipy.special
 
 
 
@@ -141,13 +141,41 @@ def K_approx2(K, its):
         
 #wa, va = K_approx2(test_G,10000)
 #np.mean(wa)*np.mean(va)/math.factorial(8)
-            
+#np.mean([wa[x]*va[x] for x in range(len(wa))])/math.factorial(20)
         
             
         
            
             
+def K_approx3(K, its):
+    
+    wins = []
+    
+    size = len(K.nodes())
+    elist = list(K.edges())
 
+    
+    for i in range(its):
+        
+        
+        random.shuffle(elist)
+        
+        mq = elist[:int(size/2)]
+        
+        test = {x[0] for x in mq}.union({x[1] for x in mq})
+        #print(mq)
+        #print(test)
+        #print(len(test))
+        
+        if len(test) == size:
+            wins.append(1)
+            
+        else:
+            wins.append(0)
+            
+        
+        
+    return np.mean(wins)*scipy.special.comb(len(elist),int(size)/2)
               
      
             
